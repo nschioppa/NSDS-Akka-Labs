@@ -21,8 +21,8 @@ public class Counter {
 		final ExecutorService exec = Executors.newFixedThreadPool(numThreads);
 
 		for (int i = 0; i < numMessages; i++) {
-			exec.submit(() -> counter.tell(new IncrementeMessage(), ActorRef.noSender()));
-			exec.submit(() -> counter.tell(new DecrementMessage(), ActorRef.noSender()));
+			exec.submit(() -> counter.tell(new SimpleMessage(1), ActorRef.noSender()));
+			exec.submit(() -> counter.tell(new SimpleMessage(-1), ActorRef.noSender()));
 		}
 		
 		// Wait for all messages to be sent and received
