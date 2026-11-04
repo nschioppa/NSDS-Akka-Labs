@@ -13,12 +13,25 @@ public class CounterActor extends AbstractActor {
 
 	@Override
 	public Receive createReceive() {
-		return receiveBuilder().match(SimpleMessage.class, this::onMessage).build();
+		return receiveBuilder()
+		.match(IncrementeMessage.class, this::onIncrement)
+		.match(DecrementMessage.class, this::onDecrement)
+		.build();
 	}
 
 	void onMessage(SimpleMessage msg) {
 		++counter;
 		System.out.println("Counter increased to " + counter);
+	}
+
+	void onIncrement(IncrementeMessage msg) {
+		++counter;
+		System.out.println("Counter increased to " + counter);
+	}
+
+	void onDecrement(DecrementMessage msg) {
+		--counter;
+		System.out.println("Counter decremented to " + counter);
 	}
 
 	static Props props() {
